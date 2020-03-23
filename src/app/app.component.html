@@ -1,0 +1,82 @@
+<form class="form" [formGroup]="form" (ngSubmit)="submit()">
+    <h3>Step 1: Upload Excel Data Set</h3>
+    <br>
+    <div>
+        <input #fileInput type="file" ng2FileSelect [uploader]="uploader"/>
+            <div class="drop-box" ng2FileDrop
+            [ngClass]="{'dragover': isDropOver}"
+            [uploader]="uploader"
+            (fileOver)="fileOverAnother($event)"
+            (click)="fileClicked()">
+            <span class="drag-in-title">Import or drag file here</span>
+            <span class="drag-over-title">Drop the file</span>
+        </div>
+    </div>
+    <br><br>
+
+    <h3>Step 2: Select Origin and Destination</h3>
+    <router-outlet></router-outlet>
+    <br>
+    
+    <div class="rTableRow">
+        <div class="rTableRow">
+            <div class="rTableCell"><label for="planetOrigin">Select Origin</label></div>
+            <div class="rTableCell"><span style="font-weight: bold;">
+                    <select formControlName="planetOrigin" id="planetOrigin">
+                        <option *ngFor="let planet of planets; let i = index" [value]="planets[i].id">
+                            {{planets[i].planetName}}
+                    </option>
+                </select>
+
+            </span></div>
+        </div>
+        
+        <div class="rTableRow">
+            <div class="rTableCell">    
+                <label for="planetDestination">Select Destination</label>
+            </div>
+            <div class="rTableCell">
+                <select formControlName="planetDestination" id="planetDestination">
+                    <option *ngFor="let planet of planets; let i = index" [value]="planets[i].id">
+                        {{planets[i].planetName}}
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <div class="rTableRow">
+        <div class="rTableCell">
+            <div class="form-group">
+                <div *ngFor="let checkBox of checkboxList">
+                    <label>
+                        <input type="checkbox" [value]="checkBox.id" (change)="onCheckboxChange($event)" />
+                        {{checkBox.name}}
+                    </label>
+                </div>
+            </div>
+
+        </div>
+        <div class="rTableCell"></div>
+    </div>
+    </div>
+
+    <button class = "submitButton">submit</button>
+    <label class="errorText"> {{errorMessage}} </label>
+    <br>
+
+    <div class="rTableRow">
+        <div class="rTableRow">
+            <div class="rTableCell"><label>Shortest distance is</label></div>
+            <div class="rTableCell">
+                <label id="lblDirection"> {{name}}</label> 
+            </div>
+        </div>
+
+        <div class="rTableRow">
+            <div class="rTableCell"><label>Directions are </label></div>
+            <div class="rTableCell">
+                <label id="lblDirection"> {{direction}}</label> 
+            </div>
+        </div>
+    </div>
+</form>
